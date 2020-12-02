@@ -1,6 +1,21 @@
 const nodemailer = require('nodemailer');
 
-module.exports = function (app){
+const config = {
+    transporter: {
+        host: "demo_domain.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'info@domain.com',
+            pass: 'your_password'
+        },
+        logger: true,
+        debug: false // include SMTP traffic in the logs
+    },
+    name: 'Mini Node'
+}
+
+module.exports = function (app) {
     app.use('/send_mail', function (req, res) {
         var transporterConfig = Object.assign({
             logger: true,
