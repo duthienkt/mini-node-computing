@@ -21,7 +21,6 @@ module.exports = function (app) {
             logger: true,
             debug: false
         }, req.body.transporter || config.transporter);
-        console.log(`[${new Date().toISOString()}] DEBUG transport`, transporterConfig);
         var name = req.body.name || config.name;
 
         let transporter = nodemailer.createTransport(
@@ -59,7 +58,8 @@ module.exports = function (app) {
         else {
             res.json({
                 status: 'FAIL',
-                error: 'Invalid param to:'
+                error: 'Invalid param to:',
+                error_1: JSON.stringify(to)
             });
             return;
         }
