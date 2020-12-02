@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-absol": "babel  ./node_modules/absol/src/ --out-dir ./lib/absol",
-    "start": "node index.js"
+    "start": "npm run build-absol && node index.js"
   },
   "repository": {
     "type": "git",
