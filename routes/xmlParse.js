@@ -1,9 +1,9 @@
 const XMLParser = require('../lib/absol/XML/XML');
 module.exports = function (app) {
     app.use('/parse', function (req, res) {
-        if (typeof (req.body) == 'string') {
+            var text = typeof (req.body) == 'string' ? req.body : req.body.xmlText;
             var startTime = new Date().getTime();
-            var result = XMLParser.parse(req.body);
+            var result = XMLParser.parse(text);
             var endTime = new Date().getTime();
             if (res) {
                 res.send(JSON.stringify({
@@ -15,12 +15,6 @@ module.exports = function (app) {
                 res.send(JSON.stringify({
                     error: 'Fail to parse'
                 }));
-
         }
-        else {
-            res.send(JSON.stringify({
-                error: 'Invalid params'
-            }));
-        }
-    });
+    );
 }

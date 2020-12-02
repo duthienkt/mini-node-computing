@@ -2,11 +2,11 @@ const nodemailer = require('nodemailer');
 
 const config = {
     transporter: {
-        host: "demo_domain.com",
+        host: "demo_server_abc.com",
         port: 465,
         secure: true,
         auth: {
-            user: 'info@domain.com',
+            user: 'info@hiddendomain.com',
             pass: 'your_password'
         },
         logger: true,
@@ -20,7 +20,14 @@ module.exports = function (app) {
         var transporterConfig = Object.assign({
             logger: true,
             debug: false
-        }, req.body.transporter || config.transporter);
+        },  config.transporter, req.body.transporter);
+        if (transporterConfig.host === config.transporter.host){
+            res.json({
+                status: 'FAIL',
+                error: 'Invalid param transporter'
+            })
+            return ;
+        }
         var name = req.body.name || config.name;
 
         let transporter = nodemailer.createTransport(

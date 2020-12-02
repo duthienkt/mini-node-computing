@@ -8,7 +8,7 @@ const express = require("express");
 
 const app = express();
 
-app.use(bodyParser.text({ type: 'text/plain', limit: '10mb', extended: true }));
+app.use(bodyParser.json());
 
 require('./routes/xmlParse')(app);
 require('./routes/mailer')(app);
