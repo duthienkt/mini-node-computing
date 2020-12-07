@@ -17,6 +17,7 @@ const config = {
 
 module.exports = function (app) {
     app.use('/send_mail', function (req, res) {
+        console.log(req.body);
         var transporterConfig = Object.assign({
             logger: true,
             debug: false
