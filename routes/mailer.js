@@ -115,32 +115,18 @@ module.exports = function (app) {
         }
 
         Promise.all(attachedSync).then(function () {
-            var downloadError = message.attachments.reduce(function (ac, cr) {
-                if (cr.error) {
-                    ac.push(cr.name);
+            transporter.sendMail(message, (error, info) => {
+                var resolveData = {};
+                if (error) {
+                    resolveData.error = error.message;
+                    resolveData.status = "FAIL";
                 }
-                return ac;
-            }, []);
-            if (downloadError.level > 0) {
-                res.json({
-                    status: 'FAIL',
-                    error: " Can not download files: " + downloadError.json(', ')
-                });
-            }
-            else {
-                transporter.sendMail(message, (error, info) => {
-                    var resolveData = {};
-                    if (error) {
-                        resolveData.error = error.message;
-                        resolveData.status = "FAIL";
-                    }
-                    else {
-                        resolveData.status = "SUCCESS";
-                    }
-                    transporter.close();
-                    res.json(resolveData);
-                });
-            }
+                else {
+                    resolveData.status = "SUCCESS";
+                }
+                transporter.close();
+                res.json(resolveData);
+            });
         });
     });
 }
