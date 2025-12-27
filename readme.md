@@ -16,11 +16,11 @@
 Khởi động
  
 ```shell
-    forever start node index.js 
+    forever start index.js 
 ```
 
 Tắt
 
 ```shell
-    forever stop node index.js 
+    forever stop index.js 
 ```
