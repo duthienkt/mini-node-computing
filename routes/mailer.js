@@ -15,12 +15,23 @@ const config = {
     name: 'Mini Node'
 }
 
+
+function autoFixTransporter(transporter) {
+    if (!transporter) return;
+    if (transporter.port === 587) {
+        transporter.secure = false;
+        transporter.requireTLS = true;
+    }
+}
+
+
 module.exports = function (app) {
     app.use('/send_mail', function (req, res) {
         var transporterConfig = Object.assign({
             logger: true,
             debug: false
         },  config.transporter, req.body.transporter);
+        autoFixTransporter(transporterConfig);
         if (transporterConfig.host === config.transporter.host){
             res.json({
                 status: 'FAIL',
