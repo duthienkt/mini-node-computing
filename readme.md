@@ -24,3 +24,13 @@ Tắt
 ```shell
     forever stop index.js 
 ```
+
+Hoặc lệnh có sẵn
+
+```shell
+sh start.sh
+```
+
+```shell
+sh stop.sh
+```
